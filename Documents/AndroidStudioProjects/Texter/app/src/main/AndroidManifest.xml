@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.android.c01.texter"
+    android:versionCode="1"
+    android:versionName="1.0">
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="22"/>
+
+    <!-- GCN connects to Internet Services -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <!-- GCM requires a google account -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
+    <!-- App wakes up the device when it sleeps -->
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <!-- Custom permission so that only this device can receive the notification -->
+    <permission android:name="com.android.c01.texter.permission.C2D_MESSAGE"
+                android:protectionLevel="signature"/>
+
+    <uses-permission android:name="com.android.c01.texter.permission.C2D_MESSAGE"/>
+
+    <!-- The permission for receiving pushed notification -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+
+    <!-- Used to check Internet Status -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
+    <!-- Vibrate when getting a notification -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".RegisterActivity"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/app_name">
+        </activity>
+
+        <receiver
+            android:name="com.google.android.gcm.GCMBroadcastReceiver"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <category android:name="com.android.c01.texter"/>
+            </intent-filter>>
+        </receiver>>
+
+        <service android:name=".GCMIntentService"/>
+    </application>
+
+</manifest>
